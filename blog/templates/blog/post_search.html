@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>Post Search</h2>
+    <form method="post" action="{% url 'post_search_result' %}">
+        <p>公開中の記事の中から記事のタイトルを検索する<br></p>
+        {% csrf_token %}
+        <input type="text" name="search_words_for_titles"><br>
+        <input type="submit" value="検索">
+    </form>  
+    <table>
+        <thead>
+            <tr>
+                <th>公開中の記事一覧</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}   
+                <tr>
+                    <td>{{ post.title }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

@@ -1,7 +1,25 @@
 {% extends 'blog/base.html' %}]
 
 {% block content %}
-<h2>post delete</h2>
-
-
+    <h2>削除しました。</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>残っている公開中の記事</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}   
+                <tr>
+                    <td>{{ post.title }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <a href="{% url 'post_index' %}">削除画面へ</a>
+    </div>
+    <div>
+        <a href="{% url 'post_list' %}">ホーム画面へ</a>
+    </div>
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>post delete</h2>
+    <form method="post" action="{% url 'post_delete' %}">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}   
+                    <tr>
+                        <td><input type="checkbox" value="{{ post.title }}" name="delete_titles"></td>
+                        <td>{{ post.title }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="削除">
+    </form>
+    <a href="{% url 'post_list' %}">ホーム画面へ</a>
+{% endblock %}

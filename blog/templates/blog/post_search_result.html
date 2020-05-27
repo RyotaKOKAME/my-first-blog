@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>公開中の記事一覧</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}   
+                <tr>
+                    <td><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <div>
+        <a href="{% url 'post_search' %}">検索画面へ</a>
+    </div>  
+{% endblock %}

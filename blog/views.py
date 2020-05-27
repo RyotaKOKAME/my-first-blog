@@ -42,5 +42,29 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
 
+def post_index(request):   
+    posts =  Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'blog/post_index.html', {'posts': posts})
+
+    
 def post_delete(request):
-    return render(request, 'blog/post_delete.html', {'form': form}) 
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    if request.method == "POST":
+        delete_posts = request.POST.getlist('delete_titles')
+        if delete_posts:    
+            Post.objects.filter(title__in=delete_posts).delete()
+    return render(request, 'blog/post_delete.html', {'posts': posts})
+
+
+def post_search(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'blog/post_search.html', {'posts': posts})
+
+
+def post_search_result(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    if request.method == "POST":
+        search_words_for_titles = request.POST.get('search_words_for_titles')
+        if search_words_for_titles:
+            posts = Post.objects.filter(title__contains=search_words_for_titles)
+    return render(request, 'blog/post_search_result.html', {'posts': posts})
